@@ -48,6 +48,7 @@ h1, footer {
   grid-column: 1 / 5;
   grid-row: 1;
   align-items: flex-end;
+  padding: 16px;
 }
 
 .clear {
