@@ -1,13 +1,15 @@
+const displayLabel = document.querySelector('.display-label');
 const clearButton = document.querySelector('.clear');
 const equalsButton = document.querySelector('.equals');
-const displayLabel = document.querySelector('.display-label');
+const percentButton = document.querySelector('.percent');
+const prefixButton = document.querySelector('.prefix');
 const numericButtons = document.querySelectorAll('.number');
 const operatorButtons = document.querySelectorAll('.operation');
 
 let initialVal = "";
 let newVal = "";
 let operation = null;
-let displayVal = 1000;
+let displayVal = 0;
 
 numericButtons.forEach(button => {
   button.addEventListener('click', () => {
@@ -25,6 +27,40 @@ operatorButtons.forEach(button => {
   }, false);
 });
 
+equalsButton.addEventListener('click', () => {
+
+  let a = parseInt(initialVal);
+  let b = parseInt(newVal);
+
+  switch (operation) {
+    case "/":
+      displayVal = divide(a,b);
+      break;
+    case "x":
+      displayVal = multiply(a,b);
+      break;
+    case "-":
+      displayVal = subtract(a,b);
+      break;
+    case "+":
+      displayVal = add(a,b);
+      break;
+  }
+
+  initialVal = "";
+  newVal = "";
+  operation = null;
+  display(displayVal);
+}, false);
+
+clearButton.addEventListener('click', () => {
+  initialVal = "";
+  newVal = "";
+  operation = null; 
+  displayVal = 0;
+
+  display(0);
+}, false);
 
 function handleButton(val) {
 
@@ -52,10 +88,15 @@ function handleButton(val) {
       operation = val;
       break;
     default:
-      console.log('idk???');
+      console.log('somehting broke');
       break;
   }
 }
+
+prefixButton.addEventListener('click', () => {
+  (operation) ? newVal *= -1 : initialVal *= -1;
+  (operation) ? display(newVal) : display(initialVal);
+}, false);
 
 
 function display(val) {
