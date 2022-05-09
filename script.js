@@ -29,8 +29,8 @@ operatorButtons.forEach(button => {
 
 equalsButton.addEventListener('click', () => {
 
-  let a = parseInt(initialVal);
-  let b = parseInt(newVal);
+  let a = parseFloat(initialVal);
+  let b = parseFloat(newVal);
 
   switch (operation) {
     case "/":
@@ -63,9 +63,6 @@ clearButton.addEventListener('click', () => {
 }, false);
 
 function handleButton(val) {
-
-  console.log(initialVal, operation, newVal);
-
   switch (typeof val) {
     case 'number':
       if (val == -1) {val = '.'}; // convert decimals
@@ -88,14 +85,28 @@ function handleButton(val) {
       operation = val;
       break;
     default:
-      console.log('somehting broke');
+      console.log('error in handleButton()');
       break;
   }
+
+  console.log(initialVal, operation, newVal);
+
 }
 
 prefixButton.addEventListener('click', () => {
   (operation) ? newVal *= -1 : initialVal *= -1;
   (operation) ? display(newVal) : display(initialVal);
+}, false);
+
+percentButton.addEventListener('click', () => {
+  let initialNum = (operation ? newVal : initialVal);
+
+  initialNum /= 100;
+
+  display(initialNum);
+
+  operation ? newVal = initialNum : initialVal = initialNum;
+
 }, false);
 
 
