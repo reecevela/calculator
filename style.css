@@ -1,0 +1,25 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.display {
+  grid-column: 1 / 4;
+  grid-row: 1;
+}
+
+
+
+.grid-wrapper * {
+  background-color: yellow;
+  opacity: 0.8;
+}
