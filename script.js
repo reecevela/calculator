@@ -51,16 +51,14 @@ function evaluate(source) {
       displayVal = add(a,b);
       break;
   }
-/*
-  initialVal = "";
-  newVal = "";
-  operation = null;
-*/
-  //newVal = initialVal;
   initialVal = parseFloat(displayVal);
   display(displayVal);
   
   console.log(initialVal, operation, newVal);
+
+  //This here's some very tricky stuff - since evaluate() is called on operator buttons as well
+  //When you repeatedly press equals, nothing happens, but repeatedly pressing an operator then
+  //a new operator causes issues sometimes. Pay attention to the console logs.
   source == "equals" ? operation = null : newVal = "";
 }
 
