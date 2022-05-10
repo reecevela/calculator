@@ -28,13 +28,18 @@ operatorButtons.forEach(button => {
 });
 
 equalsButton.addEventListener('click', () => {
+  if (operation) {
+    evaluate("equals");
+  }
+}, false);
 
+function evaluate(source) {
   let a = parseFloat(initialVal);
   let b = parseFloat(newVal);
 
   switch (operation) {
     case "/":
-      displayVal = divide(a,b);
+      b == 0 ? displayVal = "Hey don't do that!" : displayVal = divide(a,b);
       break;
     case "x":
       displayVal = multiply(a,b);
@@ -46,12 +51,18 @@ equalsButton.addEventListener('click', () => {
       displayVal = add(a,b);
       break;
   }
-
+/*
   initialVal = "";
   newVal = "";
   operation = null;
+*/
+  //newVal = initialVal;
+  initialVal = parseFloat(displayVal);
   display(displayVal);
-}, false);
+  
+  console.log(initialVal, operation, newVal);
+  source == "equals" ? operation = null : newVal = "";
+}
 
 clearButton.addEventListener('click', () => {
   initialVal = "";
@@ -72,25 +83,27 @@ function handleButton(val) {
           return; //escape early if there's already a decimal point
         }
         initialVal = "" + initialVal + val; //convert to string and display it
+        initialVal = parseFloat(initialVal);
         display(initialVal);
       } else {
         if (val == '.' && newVal.indexOf('.') !== -1) {
           return;
         }
         newVal = "" + newVal + val;
+        newVal = parseFloat(newVal);
         display(newVal);
       }
       break;
     case 'string':
+      if (newVal != "" && operation) {
+        evaluate("operation");
+      }
       operation = val;
       break;
     default:
       console.log('error in handleButton()');
       break;
   }
-
-  console.log(initialVal, operation, newVal);
-
 }
 
 prefixButton.addEventListener('click', () => {
